@@ -1,0 +1,19 @@
+name: Repository Health Report
+on:
+  workflow_dispatch:
+
+jobs:
+  agent:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Copilot Agent
+        uses: github/copilot-agent-action@v1 # Ye standard action hai
+        with:
+          agent_prompt: "Identify all open pull requests and list all branch names. Create a GitHub Issue with the findings."
+          github_token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
