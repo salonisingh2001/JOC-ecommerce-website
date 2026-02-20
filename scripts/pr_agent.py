@@ -1,6 +1,8 @@
 import os
 import requests
 from datetime import datetime, timedelta, timezone
+import smtplib
+from email.mime.text import MIMEText
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 REPO = os.getenv("REPO")
@@ -13,9 +15,26 @@ headers = {
 owner, repo = REPO.split("/")
 BASE_URL = f"https://api.github.com/repos/{owner}/{repo}"
 
+
 def get_pulls():
     url = f"{BASE_URL}/pulls?state=all&per_page=100"
     return requests.get(url, headers=headers).json()
+
+
+def send_email(subject, body):
+    EMAIL_USER = os.getenv("EMAIL_USER")
+    EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = EMAIL_USER
+    msg["To"] = EMAIL_USER
+
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        server.starttls()
+        server.login(EMAIL_USER, EMAIL_PASSWORD)
+        server.send_message(msg)
+
 
 def main():
     pulls = get_pulls()
@@ -39,13 +58,24 @@ def main():
         if now - created_at <= timedelta(days=7):
             pr_last_7_days[author] = pr_last_7_days.get(author, 0) + 1
 
-    print("\n📊 GitHub Daily Report\n")
-    print(f"PRs moved last 24h: {len(moved_last_24h)}")
-    print(f"Abandoned PRs (>14d): {len(abandoned_pr)}")
+    # Build report
+    report = f"""
+    📊 GitHub Daily Report
 
-    print("\nPR Count by Author (7 days):")
+    PRs moved last 24h: {len(moved_last_24h)}
+    Abandoned PRs (>14d): {len(abandoned_pr)}
+
+    PR Count by Author (7 days):
+    """
+
     for author, count in pr_last_7_days.items():
-        print(f"{author}: {count}")
+        report += f"{author}: {count}\n"
+
+    print(report)
+
+    # Send Email
+    send_email("Daily GitHub PR Report", report)
+
 
 if __name__ == "__main__":
     main()
