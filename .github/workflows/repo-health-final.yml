@@ -1,4 +1,4 @@
-name: Repository Health Report
+name: "ULTIMATE-HEALTH-CHECK-FIX" # Naam badal diya taaki nayi ID bane
 on:
   workflow_dispatch:
 
@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Run Copilot Agent
-        uses: github/copilot-agent-action@v1 # Ye standard action hai
+        uses: github/copilot-agent-action@v1
         with:
-          agent_prompt: "Identify all open pull requests and list all branch names. Create a GitHub Issue with the findings."
+          agent_prompt: "List all branch names and open pull requests. Then create a GitHub Issue with the findings."
           github_token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
