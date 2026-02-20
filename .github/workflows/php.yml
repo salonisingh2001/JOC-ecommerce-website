@@ -2,9 +2,9 @@ name: PHP Composer
 
 on:
   push:
-    branches: [ "MrunalJagtap14-patch-1" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "MrunalJagtap14-patch-1" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
