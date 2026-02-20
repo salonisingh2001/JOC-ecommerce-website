@@ -1,19 +1,40 @@
-name: "ULTIMATE-HEALTH-CHECK-FIX" # Naam badal diya taaki nayi ID bane
+name: "ULTIMATE-HEALTH-CHECK-FIX"
 on:
   workflow_dispatch:
 
 jobs:
-  agent:
+  health-check:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       issues: write
       pull-requests: read
+      contents: read
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Run Copilot Agent
-        uses: github/copilot-agent-action@v1
+      - name: Get Repo Data and Create Issue
+        uses: actions/github-script@v7
         with:
-          agent_prompt: "List all branch names and open pull requests. Then create a GitHub Issue with the findings."
-          github_token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
+          script: |
+            // 1. Get Branches
+            const branches = await github.rest.repos.listBranches({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            const branchNames = branches.data.map(b => b.name).join('\n- ');
+
+            // 2. Get Pull Requests
+            const prs = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+            });
+            const prList = prs.data.length > 0 
+              ? prs.data.map(p => `#${p.number}: ${p.title}`).join('\n- ')
+              : 'No open PRs';
+
+            // 3. Create the Issue
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '[AI-Report] Repository Health Summary',
+              body: `### Branch List:\n- ${branchNames}\n\n### Open Pull Requests:\n- ${prList}`
+            });
