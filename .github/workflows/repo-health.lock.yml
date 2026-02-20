@@ -24,7 +24,7 @@
 #
 # gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"fbcc4b099450bf9465e9dec73f32be266e695307a7d8fa138ef14b7fd5163e3e","compiler_version":"v0.47.2"}
 
-name: "Repository Health Report Agent"
+name: "ULTIMATE-HEALTH-CHECK-FIX"
 "on":
   push: {}
   workflow_dispatch: {}
@@ -34,7 +34,7 @@ permissions: {}
 concurrency:
   group: "gh-aw-${{ github.workflow }}-${{ github.ref }}"
 
-run-name: "Repository Health Report Agent"
+run-name: "ULTIMATE-HEALTH-CHECK-FIX"
 
 jobs:
   activation:

@@ -14,7 +14,7 @@ safe-outputs:
   create-issue:
     title-prefix: "[AI-Report] "
 ---
-# Repository Health Report Agent
+# ULTIMATE-HEALTH-CHECK-FIX
 
 You are a repository assistant.
 
