@@ -28,6 +28,8 @@ safe-outputs:
 
 source: githubnext/agentics/workflows/daily-repo-status.md@b6889159077cab6c0e585a31dcda5808c6a06aed
 engine: copilot
+env:
+  GH_AW_MODEL_AGENT_COPILOT: gpt-5-mini
 ---
 
 # Daily Repo Status

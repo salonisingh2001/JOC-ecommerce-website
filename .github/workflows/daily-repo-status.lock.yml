@@ -28,7 +28,7 @@
 #
 # Source: githubnext/agentics/workflows/daily-repo-status.md@b6889159077cab6c0e585a31dcda5808c6a06aed
 #
-# gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"d50a7484dcd75e71f31bc695efec55cbc60f311f8856bbcc5852c3435542347c","compiler_version":"v0.47.2"}
+# gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"9dec5b62befedb3364d307113acea592ad2ed7d3a992cd06d062f45ceb471805","compiler_version":"v0.47.2"}
 
 name: "Daily Repo Status"
 "on":
@@ -42,6 +42,9 @@ concurrency:
   group: "gh-aw-${{ github.workflow }}"
 
 run-name: "Daily Repo Status"
+
+env:
+  GH_AW_MODEL_AGENT_COPILOT: gpt-5-mini
 
 jobs:
   activation:
