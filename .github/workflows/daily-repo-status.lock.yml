@@ -21,20 +21,15 @@
 #
 # For more information: https://github.github.com/gh-aw/introduction/overview/
 #
-# This workflow creates daily repo status reports. It gathers recent repository
-# activity (issues, PRs, discussions, releases, code changes) and generates
-# engaging GitHub issues with productivity insights, community highlights,
-# and project recommendations.
 #
 # Source: githubnext/agentics/workflows/daily-repo-status.md@b6889159077cab6c0e585a31dcda5808c6a06aed
 #
-# gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"aa4341324d37f49169a2e00fd3c8da02638052f84506f31b2d6448541366c6bb","compiler_version":"v0.47.2"}
+# gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"342de966eb3cb8ee295d0146663e12b011dbc366fe00192d615744a9758ecd7b","compiler_version":"v0.47.2"}
 
 name: "Daily Repo Status"
 "on":
   schedule:
-  - cron: "56 23 * * *"
-    # Friendly format: daily (scattered)
+  - cron: "0 9 * * *"
   workflow_dispatch:
 
 permissions: {}
@@ -940,7 +935,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
           WORKFLOW_NAME: "Daily Repo Status"
-          WORKFLOW_DESCRIPTION: "This workflow creates daily repo status reports. It gathers recent repository\nactivity (issues, PRs, discussions, releases, code changes) and generates\nengaging GitHub issues with productivity insights, community highlights,\nand project recommendations."
+          WORKFLOW_DESCRIPTION: "No description provided"
           HAS_PATCH: ${{ needs.agent.outputs.has_patch }}
         with:
           script: |
