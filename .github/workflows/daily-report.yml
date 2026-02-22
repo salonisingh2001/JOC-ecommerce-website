@@ -1,8 +1,8 @@
-name: Daily GitHub Report Javascript
+name: Daily GitHub Report
 
 on:
   schedule:
-    - cron: '30 3 * * *'   # 9 AM IST (UTC is 5.5 hrs behind)
+    - cron: '30 3 * * *'   # 9 AM IST
   workflow_dispatch:
 
 jobs:
@@ -20,9 +20,9 @@ jobs:
 
       - run: node index.js
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO_OWNER: your_username
-          REPO_NAME: your_repo
+          GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-          EMAIL_TO: receiver_email@gmail.com
+          EMAIL_PASS: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          REPO_OWNER: ${{ secrets.REPO_OWNER }}
+          REPO_NAME: ${{ secrets.REPO_NAME }}
