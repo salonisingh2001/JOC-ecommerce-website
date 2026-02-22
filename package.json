@@ -11,10 +11,18 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@octokit/rest": "^22.0.1",
     "axios": "^1.13.5",
     "dotenv": "^17.3.1",
     "nodemailer": "^8.0.1",
     "openai": "^6.22.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salonisingh2001/JOC-ecommerce-website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/salonisingh2001/JOC-ecommerce-website/issues"
+  },
+  "homepage": "https://github.com/salonisingh2001/JOC-ecommerce-website#readme"
 }
-

@@ -2,10 +2,9 @@ name: Daily GitHub Report
 
 on:
   schedule:
-    - cron: '30 3 * * *'   # 9 AM IST
+    - cron: '30 3 * * *'  # 9 AM IST
   workflow_dispatch:
-
-jobs:
+  jobs:
   run-report:
     runs-on: ubuntu-latest
 
@@ -20,9 +19,8 @@ jobs:
 
       - run: node index.js
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          EMAIL_PASS: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
-          REPO_OWNER: ${{ secrets.REPO_OWNER }}
-          REPO_NAME: ${{ secrets.REPO_NAME }}
