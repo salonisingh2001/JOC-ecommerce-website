@@ -1,26 +1,32 @@
-name: Daily GitHub Report
+name: Daily PR Report
 
 on:
   schedule:
-    - cron: '30 3 * * *'  # 9 AM IST
+    - cron: '30 3 * * *'
   workflow_dispatch:
-  jobs:
-  run-report:
+
+jobs:
+  report:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '18'
 
-      - run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-      - run: node index.js
+      - name: Run Report Script
+        run: node index.js
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: ${{ secrets.REPO_OWNER }}
+          REPO_NAME: ${{ secrets.REPO_NAME }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
